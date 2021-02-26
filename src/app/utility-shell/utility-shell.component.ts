@@ -12,6 +12,6 @@ export class UtilityShellComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.metadata = JSON.stringify(this.data);
+    this.metadata = JSON.stringify(this.data.payload);
   }
 }

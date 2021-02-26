@@ -3,6 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ConsentComponent } from 'src/app/consent/consent.component';
 import { UtilityShellComponent } from 'src/app/utility-shell/utility-shell.component';
+import { EventManager } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,19 @@ export class CertuaEventbusService {
 
   constructor(private ngZone: NgZone, private bsModalService: BsModalService) {
     window.CertuaEventBus().$on('open-dialog', (event: any) => {
-      switch (event.payload.operation) {
-        case 'link':
-          this.showConsent(event);
+      switch (event.type) {
+        case 'utility-shell':
+          this.showUtilityShell(event);
           break;
-        case 'revoke':
-          this.showRevokeModal(event.payload);
+        case 'ask-consent':
+          switch (event.payload.operation) {
+            case 'link':
+              this.showConsent(event);
+              break;
+            case 'revoke':
+              this.showRevokeModal(event.payload);
+              break;
+          }
           break;
       }
     });
@@ -73,6 +81,20 @@ export class CertuaEventbusService {
   cancelRevoke() {
     this.data.promise.reject();
     this.modalRef?.hide();
+  }
+
+  showUtilityShell(data: any) {
+    this.data = data;
+    const initialState: ModalOptions<UtilityShellComponent> = {
+      initialState: {
+        apiConfig: this.apiConfig,
+        data: data,
+      },
+    };
+    this.modalRef = this.bsModalService.show(
+      UtilityShellComponent,
+      initialState
+    );
   }
 
   closeModal() {

@@ -13,6 +13,7 @@ export class StartComponent implements OnInit {
 
   public username: string = '';
   public password: string = '';
+  public userReference: string = '';
 
   public accessToken: string = '';
   private contextToken: string = '';
@@ -62,7 +63,7 @@ export class StartComponent implements OnInit {
 
     const body = {
       'client.integration.datasource.preference': ['OpenBanking', 'Yodlee'],
-      'client.integration.user.reference': '1', // this is your reference for your client
+      'client.integration.user.reference': this.userReference, // this is your reference for your client
     };
     this.http
       .post(tokenUrl, body, { headers: httpHeaders })

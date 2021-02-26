@@ -37,10 +37,19 @@
         id="contextToken"
         type="text"
         class="form-control"
+        readonly
         [(ngModel)]="accessToken"
+      /><label for="userReference" class="form-label"
+        >Client/Reference (this is your reference for your client)</label
+      >
+      <input
+        id="userReference"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userReference"
       />
 
-      <button class="btn btn-primary" (click)="getContextToken()">
+      <button class="btn btn-primary mt-2" (click)="getContextToken()">
         Get Contex Token
       </button>
     </div>
