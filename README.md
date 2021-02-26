@@ -6,7 +6,7 @@ This sample application shows how to get started with the Certua Web Components 
 
 1. Run `yarn`
 2. Update the institution selection component successUrl and failureUrl to be publicly accessible urls ([Ngrok](https://ngrok.com) is a good tool for this).
-3. run `yarn start`
+3. Run `yarn start`
 
 Once the application is running you can use your Certua security credentials to get a token and see the components working.
 
